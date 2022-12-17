@@ -12,7 +12,7 @@
       <a *ngIf="user != null" href="javascript://" class="nav-link nav-text" (click)="show()"><i class="pi pi-video"></i></a>
     </div>
     <div class="header-actions">
-      <a *ngIf="user == null" href="/login" class="nav-link nav-text">Login</a>
+      <a *ngIf="user == null" routerLink="/login" class="nav-link nav-text">Login</a>
       <a *ngIf="user != null" href="#" class="nav-link nav-text" (click)="logout()">Logout</a>
     </div>
   </header>
