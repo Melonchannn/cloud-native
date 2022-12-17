@@ -1,0 +1,13 @@
+.scale {
+  width: 100%;
+  padding-bottom: 15%;
+  height: 0;
+  position: relative;
+}
+
+.item {
+  background-color: aquamarine;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}

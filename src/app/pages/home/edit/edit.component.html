@@ -1,0 +1,17 @@
+<div style="text-align: center">
+  <span *ngIf="loading" class="spinner spinner-lg">Loading...</span>
+</div>
+<form *ngIf="!loading" clrForm (ngSubmit)="updateVideo()" [formGroup]="updateForm">
+  <clr-input-container>
+    <label>Video name</label>
+    <input clrInput placeholder="Video name" formControlName="videoName"/>
+    <clr-control-error>Please enter video name!</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label>Description</label>
+    <input clrInput placeholder="Description" formControlName="description"/>
+    <clr-control-error>Please enter description</clr-control-error>
+  </clr-input-container>
+  <br>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>

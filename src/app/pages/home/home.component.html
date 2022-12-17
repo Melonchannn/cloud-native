@@ -1,0 +1,43 @@
+<div style="text-align: center">
+  <span *ngIf="loading" class="spinner spinner-lg">Loading...</span>
+</div>
+<div class="clr-row">
+  <div class="clr-col-sm-12 clr-col-md-5">
+    <p-galleria *ngIf="loading == false" [value]="list2" [numVisible]="5" [showThumbnails]="false" [showIndicators]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="2000">
+      <ng-template pTemplate="item" let-item>
+        <img (click)="goDetail(item.id)" src="{{ 'https://cbyblob.blob.core.windows.net' + item.imgPath }}" style="width: 100%; display: block;" />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img src="{{ 'https://cbyblob.blob.core.windows.net' + item.imgPath }}" style="display: block;" />
+        </div>
+      </ng-template>
+      <ng-template pTemplate="caption" let-item>
+        <h4 style="margin-bottom: .5rem; color: #ffffff;">{{item.videoName}}</h4>
+      </ng-template>
+    </p-galleria>
+  </div>
+  <div class="clr-col-sm-12 clr-col-md-7">
+    <div class="clr-row">
+      <div class="clr-col-sm-12 clr-col-md-4" *ngFor="let item of list">
+        <div *ngIf="loading == false" class="card clickable" (click)="goDetail(item.id)">
+            <div class="card-img">
+              <img style="height: 25vh" src="{{ 'https://cbyblob.blob.core.windows.net' + item.imgPath }}">
+            </div>
+          <div class="card-block">
+            <h4 class="card-title">{{ item.videoName }}</h4>
+            <p class="card-text">
+              {{ item.description }}
+            </p>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">Up load by {{ item.username }}.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+    <p-paginator [rows]="q.ps" [totalRecords]="q.total" (onPageChange)="paginate($event)"></p-paginator>
+  </div>
+</div>
+

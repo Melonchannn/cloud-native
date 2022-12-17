@@ -1,0 +1,78 @@
+<a routerLink="/home"><i class="pi pi-arrow-left"></i></a>
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-sm-12 clr-col-md-8">
+    <div class="scale">
+      <img src="./assets/5eb4cc94d2bf1.jpg" class="item"/>
+      <div style="position:absolute; z-index:2; left:30px; bottom:15px">
+        <b style="font-size: x-large;color: white">{{ this.username2 }}</b>
+      </div>
+    </div>
+    <br>
+    <clr-tabs>
+      <clr-tab>
+        <button clrTabLink id="link1">
+          <span *ngIf="userId == userId2">My Videos</span>
+          <span *ngIf="userId != userId2">His/Her Videos</span>
+        </button>
+        <clr-tab-content id="content1" *clrIfActive="true">
+          <div style="text-align: center;margin-top: 10px">
+            <span *ngIf="loading" class="spinner spinner-sm">Loading...</span>
+          </div>
+          <div class="clr-row">
+            <div class="clr-col-sm-12 clr-col-md-2" *ngFor="let item of list">
+              <div style="float: left" *ngIf="userId == item.userId">
+                <clr-dropdown [clrCloseMenuOnItemClick]="false">
+                  <button clrDropdownTrigger aria-label="Dropdown demo button">
+                    <cds-icon shape="exclamation-circle" class="is-error" size="24"></cds-icon>
+                    <cds-icon shape="angle" direction="down"></cds-icon>
+                  </button>
+                  <clr-dropdown-menu *clrIfOpen>
+                    <a href="javascript://" (click)="deleteVideo($event,item.id)" class="dropdown-header" aria-hidden="true">Delete</a>&nbsp;
+                    <a href="javascript://" (click)="show(item.id)" class="dropdown-header" aria-hidden="true">Update</a>
+                  </clr-dropdown-menu>
+                </clr-dropdown>
+              </div>
+              <a (click)="goDetail(item.id)" class="card clickable card-img">
+                <img style="height: 12vh" src="{{ 'https://cbyblob.blob.core.windows.net' + item.imgPath }}" alt="{{ item.videoName }}"/>
+              </a>
+            </div>
+          </div>
+          <br>
+          <p-paginator *ngIf="loading == false" [rows]="q.ps" [totalRecords]="q.total" (onPageChange)="paginate($event)"></p-paginator>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>Follows</button>
+        <clr-tab-content *clrIfActive>
+          <div class="clr-row clr-justify-content-center">
+            <div class="clr-col-sm-12 clr-col-md-8">
+              <div class="card clickable" *ngFor="let item of follows">
+                <div class="card-block">
+                  <div style="float: right" *ngIf="userId == item.userId">
+                    <clr-dropdown [clrCloseMenuOnItemClick]="false">
+                      <button clrDropdownTrigger aria-label="Dropdown demo button">
+                        <cds-icon shape="exclamation-circle" class="is-error" size="24"></cds-icon>
+                        <cds-icon shape="angle" direction="down"></cds-icon>
+                      </button>
+                      <clr-dropdown-menu *clrIfOpen>
+                        <a href="javascript://" (click)="removeFollow($event,item.id)" class="dropdown-header" aria-hidden="true">Delete</a>
+                      </clr-dropdown-menu>
+                    </clr-dropdown>
+                  </div>
+                  <div class="card-media-block" (click)="goUserInfo(item.userIdFollow,item.userNameFollow)">
+                    <div class="card-media-description">
+                      <span class="card-media-title"> {{ item.userNameFollow }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p-paginator [rows]="q2.ps" [totalRecords]="q2.total" (onPageChange)="paginate2($event)"></p-paginator>
+        </clr-tab-content>
+      </clr-tab>
+    </clr-tabs>
+  </div>
+</div>
+<p-confirmPopup></p-confirmPopup>

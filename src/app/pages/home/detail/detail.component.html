@@ -1,0 +1,83 @@
+<a routerLink="/home"><i class="pi pi-arrow-left"></i></a>
+<div style="text-align: center">
+  <span *ngIf="loading" class="spinner spinner-lg">Loading...</span>
+</div>
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-sm-12 clr-col-md-7" *ngFor="let item of list">
+    <div class="card">
+      <div class="card-media-image">
+        <video width='100%' height='550' controls>
+          <source [src]="'https://cbyblob.blob.core.windows.net' + item.videoPath">
+        </video>
+      </div>
+    </div>
+    &nbsp;&nbsp;
+    <clr-tabs>
+      <clr-tab>
+        <button clrTabLink id="link1">profile</button>
+        <clr-tab-content id="content1" *clrIfActive="true">
+          <h3>{{ item.videoName }}</h3>
+          <h4>{{ item.description }}</h4>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink (click)="getComment()">comment</button>
+        <clr-tab-content *clrIfActive>
+          &nbsp;&nbsp;
+          <form (ngSubmit)="post()" [formGroup]="commentForm">
+            <span *ngIf="userId == null">Please login first</span>
+            <span *ngIf="userId != null">{{ username }}</span>
+            <div class="p-inputgroup">
+              <textarea formControlName="text" rows="1" cols="20" pInputTextarea [autoResize]="true"></textarea>&nbsp;&nbsp;
+              <button *ngIf="userId != null" type="submit" class="btn btn-primary">Post</button>
+            </div>
+          </form>
+          <h4>Comments</h4>
+          <hr class="borderLine">
+          <span *ngIf="loading2" class="spinner spinner-sm">Loading...</span>
+          <ul class="list-unstyled" *ngFor="let item of comment">
+            <div style="float: right" *ngIf="userId == item.userId">
+              <clr-dropdown [clrCloseMenuOnItemClick]="false">
+                <button clrDropdownTrigger aria-label="Dropdown demo button">
+                  <cds-icon shape="exclamation-circle" class="is-error" size="24"></cds-icon>
+                  <cds-icon shape="angle" direction="down"></cds-icon>
+                </button>
+                <clr-dropdown-menu *clrIfOpen>
+                  <a href="javascript://" (click)="deleteComment($event,item.id)" class="dropdown-header" aria-hidden="true">Delete</a>
+                </clr-dropdown-menu>
+              </clr-dropdown>
+            </div>
+            <span>{{ item.username }}</span>
+            <li><b>{{ item.text }}</b></li>
+            <br>
+            <hr>
+          </ul>
+        </clr-tab-content>
+      </clr-tab>
+    </clr-tabs>
+  </div>&nbsp;&nbsp;&nbsp;
+  <div class="clr-col-sm-12 clr-col-md-2">
+    <div *ngIf="loading == false" class="card card-block" style="text-align: center;">
+      <a href="javascript://" (click)="goUserInfo(userId2)"><h4 class="card-title">{{ this.username2 }}</h4></a>
+      <p class="card-text">
+        <button pButton *ngIf="userId != this.userId2 && isFollow == false" style="width: 20vh; height: 3vh;" label="Follow" icon="pi pi-plus" (click)="follow()"></button>
+        <button pButton class="p-button-secondary" *ngIf="userId != this.userId2 && isFollow == true" style="width: 20vh; height: 3vh;" label="Followed" icon="pi pi-check" [disabled]="true"></button>
+      </p>
+    </div>
+    <div style="text-align: center;margin-top: 50px">
+      <span *ngIf="loading3" class="spinner spinner-md">Loading...</span>
+    </div>
+    <div class="card clickable" *ngFor="let item of recommend" (click)="goDetail(item.id)">
+      <div class="card-block">
+        <div class="card-media-block">
+          <img src="{{ 'https://cbyblob.blob.core.windows.net' + item.imgPath }}" class="card-media-image" />
+          <div class="card-media-description">
+            <span class="card-media-title"> {{ item.username }} </span>
+            <span class="card-media-text"> {{ item.videoName }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmPopup></p-confirmPopup>

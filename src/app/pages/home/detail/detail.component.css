@@ -1,0 +1,4 @@
+.borderLine {
+  height: 1px;
+  background: -webkit-linear-gradient(left, #fff -4%, #333 50%, #fff 100%);
+}

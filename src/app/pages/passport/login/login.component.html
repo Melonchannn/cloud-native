@@ -1,0 +1,26 @@
+<div class="login-wrapper">
+  <form class="login" (ngSubmit)="login()" [formGroup]="loginForm">
+    <section class="title">
+      <h3 class="welcome">Welcome to</h3>
+      My Video Website
+      <h5 class="hint">Use your account to sign in or create one now</h5>
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-sr-only">Username</label>
+        <input type="text" name="username" formControlName="username" clrInput placeholder="Username"/>
+        <clr-control-error>Username cannot be less than 4 digits!</clr-control-error>
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Password</label>
+        <input type="password" name="password" formControlName="password" clrPassword placeholder="Password"/>
+        <clr-control-error>Password cannot be less than 6 digits!</clr-control-error>
+      </clr-password-container>
+      <div class="error active" *ngIf="msg.error != ''">
+        {{ msg.error }}
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+      <a routerLink="/register" class="signup">Sign up for a account</a>
+    </div>
+  </form>
+</div>

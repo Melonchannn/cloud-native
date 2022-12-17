@@ -1,0 +1,26 @@
+<div style="text-align: center">
+  <span *ngIf="loading" class="spinner spinner-lg">Loading...</span>
+</div>
+<form *ngIf="!loading" (ngSubmit)="release()" [formGroup]="releaseForm">
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon">Video name</span>
+    <input type="text" pInputText formControlName="videoName" placeholder="Video name">
+  </div>
+  <br><br>
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon">Choose a picture</span>
+    <input type="file" pInputText id="upImg" formControlName="imgFile" accept="image/vnd.sealedmedia.softseal.jpg">
+  </div>
+  <br><br>
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon">Choose a video</span>
+    <input type="file" pInputText id="upVideo" formControlName="videoFile" accept="video/mp4">
+  </div>
+  <br><br>
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon">Description</span>
+    <input type="text" pInputText formControlName="description" placeholder="Description">
+  </div>
+  <br><br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
