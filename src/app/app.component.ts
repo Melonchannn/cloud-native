@@ -24,6 +24,9 @@ export class AppComponent {
 
   logout(): void {
     sessionStorage.clear();
+    setTimeout(() =>{
+      window.location.reload();
+    },500)
   }
 
   goUserInfo(userId2: any): void {
