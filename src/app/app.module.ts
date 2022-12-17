@@ -23,6 +23,7 @@ import {ConfirmPopupModule} from "primeng/confirmpopup";
 import { UserComponent } from './pages/user/user.component';
 import {GalleriaModule} from "primeng/galleria";
 import { EditComponent } from './pages/home/edit/edit.component';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { EditComponent } from './pages/home/edit/edit.component';
         ConfirmPopupModule,
         GalleriaModule
     ],
-  providers: [MessageService, ConfirmationService, DialogService],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },MessageService, ConfirmationService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
