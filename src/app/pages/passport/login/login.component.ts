@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('username', res.data[0].username);
 
       setTimeout(() =>{
-        window.location.href = '/home'
+        window.location.href = '/#/home'
       },2500)
     });
   }
